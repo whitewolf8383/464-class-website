@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta author="Keith Francis">
+    <title>CSU CS464 Class Project</title>
+    <link rel='icon' href='developer-icon.png' type='image/x-icon'/ >
+    <!-- font familes -->
+    <link href="https://fonts.googleapis.com/css?family=Fascinate+Inline|Great+Vibes|Raleway" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <style media="screen">
+    * { box-sizing: border-box; }
+
+    body { font-family: sans-serif; }
+
+    .scene {
+      width: 100vw;
+      height: 100vh;
+      perspective: 100%;
+    }
+
+    .cube {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      transform-style: preserve-3d;
+      transform: translateZ(-100px);
+      transition: transform 1.5s;
+    }
+
+    .cube.show-front  { transform: translateZ(-100px) rotateY(   0deg); }
+    .cube.show-right  { transform: translateZ(-100px) rotateY( -90deg); }
+    .cube.show-back   { transform: translateZ(-100px) rotateY(-180deg); }
+    .cube.show-bottom { transform: translateZ(-100px) rotateX(  90deg); }
+    .cube.show-top    { transform: translateZ(-100px) rotatex( -90deg); }
+
+    .cube__face {
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      font-weight: bold;
+      color: blue;
+      text-align: center;
+    }
+
+    .cube__face--front  { background: black; }
+    .cube__face--right  { background: black; }
+    .cube__face--back   { background: black; }
+    .cube__face--bottom { background: black; }
+    .cube__face--top    { background: black; }
+
+    .cube__face--front  { transform: rotateY(  0deg) translateZ(50vw); }
+    .cube__face--right  { transform: rotateY( 90deg) translateZ(50vw); }
+    .cube__face--back   { transform: rotateY(180deg) translateZ(50vw); }
+    .cube__face--bottom { transform: rotateX(-90deg) translateZ(50vw); }
+    .cube__face--top    { transform: rotateX( 90deg) translateZ(50vw); }
+
+    label {
+      margin-right: 30px;
+    }
+
+    .radio-group{
+      background-color: black;
+    }
+
+    .btn-hide{
+      opacity: 0;
+      width: 40px;
+      height: 40px;
+    }
+
+    .dot{
+      border-radius: 100%;
+      border-width: thick;
+      display: inline-block;
+      position: absolute;
+      line-height: 0;
+    }
+
+    .dot:hover{
+      background-color: blue;
+    }
+
+    .dot-one{
+      background-color: green;
+      top: 15%;
+      right: 2%;
+    }
+
+    .dot-two{
+      background-color: red;
+      top: 30%;
+      right: 2%;
+    }
+
+    .dot-three{
+      background-color: red;
+      top: 45%;
+      right: 2%;
+    }
+
+    .dot-four{
+      background-color: red;
+      top: 75%;
+      right: 2%;
+    }
+
+    .dot-five{
+      background-color: red;
+      top: 60%;
+      right: 2%;
+    }
+
+    .page-one-h1{
+      font-size: 7vw;
+      font-family: "Fascinate Inline";
+      padding-top: 5%;
+    }
+
+    .banner{
+      display: inline-block;
+      font-family: "Great Vibes";
+      font-size: 3vw;
+      position: absolute;
+      transform: rotateZ(-45deg);
+      top: 10%;
+      left: 0;
+    }
+    .footer-banner{
+      display:inline-block;
+      position: absolute;
+      bottom: 0;
+      left: 2%;
+    }
+
+    .page-2-h1{
+
+    }
+
+    .kf{
+      display: inline-block;
+      font-family: "Raleway";
+      position: absolute;
+      width: 20%;
+      left: 40%;
+
+    }
+
+    .cam{
+      display: inline-block;
+      font-family: "Raleway";
+      position: absolute;
+      width: 20%;
+      left: 15%;
+      top: 20%;
+    }
+
+    .jew{
+      display: inline-block;
+      font-family: "Raleway";
+      position: absolute;
+      width: 20%;
+      left: 65%;
+      top: 20%;
+    }
+
+    .video-p{
+      width: 85%;
+      padding-left: 20%;
+      text-align: left;
+    }
+
+    </style>
+
+  </head>
+  <body>
+    <div class="scene">
+      <div class="cube">
+
+        <div class="page-one cube__face cube__face--front">
+          <h1 class="page-one-h1">Computer <br> Assisted <br> Classroom <br> Participation</h1>
+          <h3 class="banner">CSU <br> CS464 Project</h3>
+          <h6 class="footer-banner">Developed for Colorado State University CS464 Class Project</h6>
+        </div>
+
+        <div class="page-three cube__face cube__face--right">
+          <h1 class="page-2-h1">ABOUT US</h1>
+          <br>
+          <div class="kf">
+            <h3>Keith Francis</h3>
+            <h5>Project Lead</h5>
+            <img src="keith.jpg" alt="Pic of Keith Francis">
+            <p>I am currently a Senior with a planned graduation of Dec 2019.
+              My degree is in Computer Science with the HCI concentration and a
+              focus on Web Development.</p>
+          </div>
+          <div class="cam">
+            <h3>Cam Nagel</h3>
+            <img src="cam.jpg" alt="Pic of Cam Nagel">
+            <p>Cam Nagel is a computer science student at Colorado State University and is graduating in May 2019</p>
+          </div>
+          <div class="jew">
+            <h3>Jewett Lane</h3>
+            <img src="jewett.jpg" alt="Pic of Jewett Lane">
+            <p>Write something</p>
+          </div>
+          <h3 class="banner">CSU <br> CS464 Project</h3>
+          <h6 class="footer-banner">Developed for Colorado State University CS464 Class Project</h6>
+        </div>
+
+        <div class="page-two cube__face cube__face--back">
+          <h1>PROJECT</h1>
+          <br>
+          <h3>Project Details</h3>
+          <div class="vid-p-div">
+          <p class="video-p">Our project focuses on student interaction within the classroom.
+          Upon our investigations into classroom particiapation studies, we found
+          that less then 10% of the student class population regularly participate
+          during the class. Additionally, we found that as class sizes get larger,
+          as typical in today's college classrooms, the participation rate decreases
+          even further. We also discovered that those students who activily participate
+          during classes tend to recieve higher class grades and a better understanding
+          of the material being presented.</p>
+          <p class="video-p">Our focus for this project is to create a means that allows students
+          to participate in class activities throughout the entire class period,
+          but not being forced into a situation in which they may feel unsecure by
+          speaking or participating in front of the entire group. Additionally, we wanted
+          a means for students to be able to revisit information during the class period.
+          Finally, our investigation into research conducted on student performance has
+          shown that students who regularly quiz themselves over recent informaiton tend
+          to learn the information at a faster rate. Therefore, we incorporated a testing
+          process to allow students to test shortly after learning the new information
+          in order to better strengthen their memory of the subject matter.</p>
+          </div>
+          <h3 class="banner">CSU <br> CS464 Project</h3>
+          <h6 class="footer-banner">Developed for Colorado State University CS464 Class Project</h6>
+        </div>
+
+        <div class="page-five cube__face cube__face--top">
+          <h1>PROJECT VIDEO</h1>
+          <h4>Video goes here</h4>
+          <h3 class="banner">CSU <br> CS464 Project</h3>
+          <h6 class="footer-banner">Developed for Colorado State University CS464 Class Project</h6>
+
+        </div>
+
+        <div class="page-four cube__face cube__face--bottom">
+          <h1>DEMO</h1>
+          <h3>CONTROL GROUP</h3>
+          <p>ppt here</p>
+          <a href="https://whitewolf8383.github.io/hci-class1/index.html">View the Control slides</a>
+          <h3>Description</h3>
+          <p>Write something here</p>
+          <br>
+          <h3>TEST GROUP</h3>
+          <p>ppt here</p>
+          <a href="http://www.cs.colostate.edu/~keith83/Class_2/index.html">View the Test slides</a>
+          <h3>Description</h3>
+          <p>write Something here</p>
+          <h3 class="banner">CSU <br> CS464 Project</h3>
+          <h6 class="footer-banner">Developed for Colorado State University CS464 Class Project</h6>
+        </div>
+      </div>
+
+
+      <p class="radio-group">
+        <label>
+          <button id="1" class="dot dot-one listen" type="button" name="button">
+            <input class="btn-hide" type="radio" name="rotate-cube-side" value="front" checked />
+          </button>
+        </label>
+
+        <label>
+          <button id="2" class="dot dot-two listen" type="button" name="button">
+            <input class="btn-hide" type="radio" name="rotate-cube-side" value="right" />
+          </button>
+        </label>
+
+        <label>
+          <button id="3" class="dot dot-three listen" type="button" name="button">
+            <input class="btn-hide" type="radio" name="rotate-cube-side" value="back" />
+          </button>
+        </label>
+
+        <label>
+          <button id="4" class="dot dot-four listen" type="button" name="button">
+            <input class="btn-hide" type="radio" name="rotate-cube-side" value="bottom" />
+          </button>
+        </label>
+
+        <label>
+          <button id="5" class="dot dot-five listen" type="button" name="button">
+            <input class="btn-hide" type="radio" name="rotate-cube-side" value="top" />
+          </button>
+        </label>
+      </p>
+
+
+
+
+    </div>
+
+
+
+    <script>
+    var cube = document.querySelector('.cube');
+    var radioGroup = document.querySelector('.radio-group');
+    var currentClass = '';
+
+    function changeSide() {
+      var checkedRadio = radioGroup.querySelector(':checked');
+      var showClass = 'show-' + checkedRadio.value;
+      if ( currentClass ) {
+        cube.classList.remove( currentClass );
+      }
+      cube.classList.add( showClass );
+      currentClass = showClass;
+    }
+    // set initial side
+    changeSide();
+
+    radioGroup.addEventListener( 'change', changeSide );
+
+
+    for(var i = 0; i < document.querySelectorAll(".listen").length; i++){
+      $(".listen")[i].addEventListener("click", function() {
+        //reset cells
+        $(".listen").css("background-color", "red");
+
+        //CHANGE CELLS
+        var cellValue = this.id;
+        var item = "#"+this.id;
+        $(item).css("background-color", "green");
+      });
+    }
+
+    </script>
+
+  </body>
+</html>
